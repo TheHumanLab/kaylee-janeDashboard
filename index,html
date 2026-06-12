@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaylee-Jane — Client Intelligence Hub</title>
+<meta name="description" content="Kaylee-Jane Client Intelligence Hub. Private engagement portal for Organizational Diagnosis & Redesign.">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23141b2a'/%3E%3Ctext x='32' y='40' text-anchor='middle' fill='%23f6f4ef' font-family='Georgia, serif' font-size='26' font-weight='500'%3EKJ%3C/text%3E%3C/svg%3E">
+<style>
+/* Kaylee-Jane Client Intelligence Hub V1
+   Boardroom dossier — monochrome, no gold
+   -------------------------------------------------- */
+:root {
+  --bg: #0e1116;
+  --navy: #141b2a;
+  --navy-active: #1a2338;
+  --surface: #181d27;
+  --surface-2: #202634;
+  --ivory: #f6f4ef;
+  --text: #e7e5e0;
+  --text-muted: #8a8d92;
+  --text-dark: #141b2a;
+  --text-dark-muted: #5c5e64;
+  --line: #2a2f3a;
+  --line-light: #dcd8d2;
+  --white: #ffffff;
+  --green: #7a9a7a;
+  --red: #b56a5a;
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --shadow-soft: 0 8px 40px rgba(0,0,0,.22);
+  --shadow-card: 0 2px 18px rgba(0,0,0,.10);
+  --serif: 'Fraunces', 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --ui: Inter, -apple-system, 'Helvetica Neue', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+  --ease: 180ms cubic-bezier(.2,.7,.2,1);
+  --page-max: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--ui);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+a { color: inherit; }
+button, input { font: inherit; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* --- Access Gate --- */
+#gate {
+  min-height: 100vh;
+  background: var(--ivory);
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+}
+.gate-card {
+  width: 100%;
+  max-width: 480px;
+  background: #fff;
+  border: 1px solid var(--line-light);
+  border-radius: 20px;
+  padding: 52px 44px 40px;
+  box-shadow: 0 18px 60px rgba(20,27,42,.08);
+}
+.gate-mark {
+  width: 44px; height: 44px;
+  border-radius: 11px;
+  background: var(--navy);
+  color: var(--ivory);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif);
+  font-size: 19px;
+  margin-bottom: 28px;
+}
+.gate-card h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(30px, 4.5vw, 38px);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  margin: 0 0 10px;
+  color: #151b28;
+}
+.gate-sub {
+  color: #5c5e64;
+  font-size: 14.5px;
+  margin: 0 0 34px;
+}
+.gate-label {
+  display: block;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: .11em;
+  color: #777a80;
+  margin-bottom: 9px;
+}
+.gate-input {
+  width: 100%;
+  padding: 14px 15px;
+  border: 1px solid #cbc6bd;
+  background: #fbfaf7;
+  border-radius: 10px;
+  font-size: 15.5px;
+  color: #1b1f27;
+  outline: none;
+  transition: border-color var(--ease), box-shadow var(--ease);
+}
+.gate-input:focus { border-color: #95908a; box-shadow: 0 0 0 3px rgba(20,27,42,.08); }
+.gate-input::placeholder { color:#a8a5a0; }
+.gate-btn {
+  margin-top: 14px;
+  width: 100%;
+  padding: 14px 18px;
+  background: #161d2b;
+  color: #f6f4ef;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14.5px;
+  font-weight: 500;
+  transition: background var(--ease), transform var(--ease);
+}
+.gate-btn:hover { background: #202a3e; }
+.gate-btn:active { transform: translateY(1px); }
+.gate-foot {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid #e4e0d9;
+  font-size: 12.7px;
+  color: #7b7c7f;
+}
+.gate-error {
+  font-size: 13px;
+  color: #a54a3a;
+  margin-top: 10px;
+  min-height: 18px;
+}
+
+/* --- App Shell --- */
+#app { display: block; min-height: 100vh; }
+
+.app-layout {
+  display: grid;
+  grid-template-columns: 256px 1fr;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  background: var(--navy);
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+.sb-top {
+  padding: 28px 24px;
+  border-bottom: 1px solid rgba(255,255,255,.065);
+}
+.sb-brand-row { display:flex; align-items:center; gap:12px; }
+.sb-mark {
+  width: 38px; height: 38px; border-radius: 10px;
+  background: rgba(246,244,239,.08);
+  border: 1px solid rgba(246,244,239,.14);
+  display:flex; align-items:center; justify-content:center;
+  font-family: var(--serif); font-size: 16px; color: var(--ivory);
+  flex-shrink:0;
+}
+.sb-name { font-family: var(--serif); font-size: 18px; color: var(--ivory); letter-spacing: -.01em;}
+.sb-tagline { font-size: 11.6px; color: #7e838d; margin-top: 1px; }
+
+.sb-nav {
+  padding: 18px 14px;
+  flex: 1;
+}
+.sb-nav-label {
+  font-size: 10.5px; letter-spacing: .13em; text-transform: uppercase;
+  color: #5f6674; padding: 8px 12px 10px;
+}
+.nav-btn {
+  display:flex; align-items:center; gap: 10px;
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: 9px;
+  border: none;
+  background: transparent;
+  color: #b8bcc4;
+  cursor: pointer;
+  font-size: 14px;
+  text-align:left;
+  transition: background var(--ease), color var(--ease);
+}
+.nav-btn:hover { background: rgba(255,255,255,.045); color: #e9e6e0; }
+.nav-btn[aria-current="page"] {
+  background: var(--navy-active);
+  color: var(--ivory);
+}
+.nav-ico { width:18px; opacity:.82; flex-shrink:0; text-align:center; }
+.sb-footer {
+  padding: 16px 14px 22px;
+  border-top: 1px solid rgba(255,255,255,.065);
+}
+.nav-btn.signout { color: #9a9da4;}
+
+/* Main column */
+.main-col { min-width:0; }
+
+/* Top bar */
+.topbar {
+  height: 66px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(14,17,22,.82);
+  backdrop-filter: blur(8px);
+  position: sticky; top: 0; z-index: 30;
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 0 34px 0 36px;
+  gap: 16px;
+}
+.tb-left { min-width:0; }
+.tb-engagement {
+  font-family: var(--serif);
+  font-size: 17.5px;
+  color: #e6e2dc;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.tb-engagement span.sep { opacity:.45; margin: 0 7px;}
+.tb-right {
+  display:flex; align-items:center; gap:16px; flex-shrink:0;
+  font-size: 12.8px; color: var(--text-muted);
+}
+.status-dot {
+  width:7px; height:7px; border-radius:50%; background:#7f9e7d; display:inline-block; margin-right:7px;
+  box-shadow: 0 0 0 3px rgba(122,154,122,.14);
+}
+.hamburger {
+  display:none;
+  background: transparent; border: 1px solid var(--line);
+  color: var(--text); border-radius: 10px; padding: 9px 11px; cursor:pointer;
+}
+
+/* Content area */
+.content {
+  padding: 44px 36px 72px;
+}
+.view {
+  display: none;
+  max-width: var(--page-max);
+  animation: viewIn .22s ease;
+}
+.view.is-active { display: block; }
+@keyframes viewIn { from { opacity:0; transform: translateY(6px);} to {opacity:1; transform:none;} }
+
+.view-intro { margin-bottom: 30px; }
+.view-kicker {
+  font-size: 11.3px; letter-spacing: .14em; text-transform: uppercase; color: #7f8288; margin-bottom: 12px;
+}
+.view-title {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(32px, 4.2vw, 46px);
+  line-height: 1.1;
+  letter-spacing: -.018em;
+  margin: 0 0 10px;
+  color: #f1ede6;
+}
+.view-lede {
+  color: #9a9da3;
+  max-width: 640px;
+  font-size: 15.2px;
+  margin:0;
+}
+
+/* Dashboard */
+.welcome-block { margin-bottom: 28px; }
+.welcome-eyebrow {
+  font-size: 11.4px; letter-spacing: .13em; text-transform: uppercase; color: #7d8088;
+  margin-bottom: 10px;
+}
+.welcome-h1 {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(34px, 4.8vw, 52px);
+  letter-spacing: -.017em; margin:0 0 6px; color: #f2eee7;
+}
+.welcome-meta { color: #8d9097; font-size: 14px; }
+.welcome-meta strong { color: #cac8c2; font-weight: 500;}
+
+.note-hero {
+  background: var(--ivory);
+  color: var(--text-dark);
+  border-radius: var(--radius-lg);
+  padding: 30px 30px 26px;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 20px;
+}
+.note-hero-top {
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  margin-bottom: 16px;
+  font-size: 11.3px; letter-spacing: .11em; text-transform: uppercase; color: #6d7077;
+}
+.live-dot { color: #7a9a7a; margin-right: 5px;}
+.note-hero h2 {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(22px, 2.6vw, 28px);
+  line-height: 1.35; margin: 0 0 10px; color: #1a2130;
+  max-width: 760px;
+}
+.note-hero p { margin:0; color: #494b50; font-size: 15.3px; max-width: 720px; }
+
+.dash-grid {
+  display: grid;
+  grid-template-columns: 1.58fr .92fr;
+  gap: 20px;
+  align-items: start;
+}
+
+/* Notes timeline */
+.timeline-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 26px 26px 12px;
+}
+.card-h {
+  font-family: var(--serif);
+  font-size: 20px; font-weight: 500; margin: 0 0 18px; color:#e9e5de;
+}
+.note-item {
+  padding: 18px 0;
+  border-top: 1px solid #262c36;
+}
+.note-item:first-of-type { border-top: none; padding-top: 4px;}
+.note-date { font-size: 11.7px; color: #7d8188; margin-bottom: 6px;}
+.note-item h4 {
+  font-family: var(--serif);
+  font-size: 18px; font-weight: 500;
+  margin:0 0 6px; color: #e6e2db;
+}
+.note-item p { margin:0; color: #a3a6ad; font-size: 14.3px; line-height: 1.6;}
+.note-tag {
+  display:inline-block; margin-top:10px;
+  font-size: 11px; color:#8b8f97; background: #232835; border:1px solid #2f3542;
+  padding: 3px 9px; border-radius: 999px;
+}
+
+/* Quick actions */
+.qa-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 26px;
+}
+.qa-list { display:flex; flex-direction:column; gap: 10px; margin-top: 4px;}
+.qa-btn {
+  width:100%; text-align:left;
+  background: #222834;
+  border: 1px solid #313846;
+  color: #d9d6d0;
+  border-radius: 11px;
+  padding: 14px 15px;
+  cursor:pointer;
+  transition: background var(--ease), border-color var(--ease), transform var(--ease);
+  font-size: 14px;
+}
+.qa-btn:hover { background: #283041; border-color:#3a4252;}
+.qa-btn span.sub { display:block; font-size:12.6px; color:#8b8f97; margin-top:3px;}
+.qa-sep { height:1px; background:#262c36; margin: 18px 0 14px;}
+.qa-meta { font-size: 12.8px; color: #7b7f87; line-height:1.7;}
+.qa-meta strong { color:#bdbab4; font-weight:500;}
+
+/* --- Vault / Resources shared --- */
+.toolbar {
+  display:flex; flex-wrap: wrap; gap:14px; align-items:center; justify-content:space-between;
+  margin: 22px 0 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+.filter-tabs { display:flex; flex-wrap:wrap; gap:8px;}
+.filter-tab {
+  border:1px solid #313742;
+  background: transparent;
+  color:#a8acb4;
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 13px;
+  cursor:pointer;
+  transition: all var(--ease);
+}
+.filter-tab:hover { color:#e2ddd5; border-color:#494f5c;}
+.filter-tab.is-active { background: #1d2433; color:#efe9e0; border-color:#3d4453;}
+.search-wrap { position:relative; min-width: 248px; flex: 1; max-width: 340px;}
+.search-input {
+  width:100%;
+  background: #161b25;
+  border:1px solid #2d3340;
+  color: #ddd8d0;
+  border-radius: 10px;
+  padding: 10px 14px 10px 36px;
+  font-size: 14px;
+  outline:none;
+  transition: border-color var(--ease);
+}
+.search-input:focus { border-color:#4a5160;}
+.search-ico { position:absolute; left:12px; top:50%; transform:translateY(-50%); color:#6b707a; font-size:14px;}
+
+/* Document cards */
+.doc-grid {
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 16px;
+}
+.doc-card {
+  background: var(--ivory);
+  color: var(--text-dark);
+  border-radius: 16px;
+  padding: 22px 22px 18px;
+  border: 1px solid #ddd7cc;
+  box-shadow: 0 2px 14px rgba(0,0,0,.08);
+  display:flex; flex-direction:column;
+  min-height: 188px;
+  transition: transform var(--ease), box-shadow var(--ease);
+}
+.doc-card:hover { transform: translateY(-2px); box-shadow: 0 10px 34px rgba(0,0,0,.14); }
+.doc-top { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; margin-bottom: 8px; }
+.doc-cat {
+  font-size: 10.7px; letter-spacing: .11em; text-transform: uppercase;
+  color: #676a70; background: #e8e3d9; border-radius: 6px; padding: 4px 8px;
+}
+.doc-type { font-size: 11.8px; color:#7b7c7f;}
+.doc-card h3 {
+  font-family: var(--serif);
+  font-size: 20.5px; font-weight:500; line-height:1.35;
+  margin: 8px 0 10px; color: #1b2231;
+}
+.doc-meta { font-size: 12.9px; color:#6b6d73; margin-bottom: 16px;}
+.doc-actions { margin-top:auto; display:flex; gap:10px; align-items:center;}
+.btn-download {
+  border:1px solid #c5bfb4;
+  background: transparent;
+  color: #2a2f3a;
+  border-radius: 9px;
+  padding: 9px 13px;
+  font-size: 13.2px;
+  text-decoration: none;
+  transition: background var(--ease), border-color var(--ease);
+  display:inline-flex; align-items:center; gap:7px;
+}
+.btn-download:hover { background:#ece7dc; border-color:#b8b1a4;}
+.doc-hidden { display:none !important; }
+
+/* Resources */
+.res-grid {
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+.res-card {
+  background: var(--ivory);
+  color: var(--text-dark);
+  border-radius: 16px;
+  padding: 22px 22px 20px;
+  border: 1px solid #ddd7cc;
+  min-height: 196px;
+  display:flex; flex-direction:column;
+}
+.res-card h3 {
+  font-family: var(--serif);
+  font-size: 20px; font-weight:500; line-height:1.35; margin:0 0 10px; color:#1d2433;
+}
+.res-card p { margin:0; color:#52555c; font-size: 14px; line-height:1.6; }
+.res-link {
+  margin-top:auto;
+  padding-top:14px;
+  font-size: 13.5px;
+  color:#2c3342;
+  text-decoration:none;
+}
+.res-link:hover { text-decoration: underline; }
+
+/* Brief */
+.brief-grid {
+  display:grid;
+  grid-template-columns: 1.45fr .85fr;
+  gap: 26px;
+  align-items:start;
+}
+.brief-body {
+  background: var(--surface);
+  border:1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 30px 30px;
+}
+.brief-body h3 {
+  font-family: var(--serif); font-size: 22px; font-weight: 500; margin:0 0 14px; color:#ede8e0;
+}
+.brief-body p, .brief-body li { color:#a9adb4; }
+.brief-body p { margin: 0 0 14px; line-height: 1.72;}
+.brief-body ul { margin: 8px 0 18px 18px; padding:0;}
+.brief-body li { margin-bottom: 7px;}
+.hr-faint { border:0; border-top:1px solid #2a2f3a; margin: 22px 0; }
+
+.contact-card {
+  background: var(--ivory);
+  color: var(--text-dark);
+  border-radius: 16px;
+  padding: 24px 24px;
+  border: 1px solid #ddd7cc;
+}
+.contact-card h4 { font-family: var(--serif); font-size: 19px; font-weight:500; margin:0 0 8px;}
+.contact-card p { color:#55585f; margin:0 0 12px; font-size: 14px;}
+.contact-card a { color: #1c2435; }
+.muted-dark { color:#6b6e75; font-size:13.3px; }
+
+.update-box {
+  margin-top: 18px;
+  background: #10151f;
+  color: #c9c5bd;
+  border: 1px solid #272d3a;
+  border-radius: 14px;
+  padding: 20px 20px;
+}
+.update-box h4 { margin:0 0 12px; color:#e7e2d8; font-family: var(--serif); font-size: 18px; font-weight:500;}
+.code-tree {
+  font-family: var(--mono);
+  font-size: 12.8px;
+  line-height: 1.9;
+  color: #aeb3bc;
+  background: #0c1018;
+  border:1px solid #232938;
+  border-radius: 10px;
+  padding: 14px 16px;
+  overflow:auto;
+  margin: 10px 0 12px;
+}
+.code-tree b { color: #ddd8cc; font-weight: 600;}
+.update-note { color:#8d9199; font-size: 13.6px; line-height: 1.65; margin:0;}
+
+/* Empty state */
+.empty-state {
+  background: var(--surface);
+  border:1px dashed #343a46;
+  color:#8b8f98;
+  border-radius: 14px;
+  padding: 30px;
+  text-align:center;
+}
+
+/* Toast */
+#toast {
+  position: fixed; bottom: 22px; right: 22px;
+  background: #f2eee7;
+  color: #1d2433;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 13.5px;
+  box-shadow: 0 14px 40px rgba(0,0,0,.35);
+  opacity:0; transform: translateY(8px);
+  transition: opacity .18s ease, transform .18s ease;
+  pointer-events:none; z-index: 99; max-width: 360px;
+}
+#toast.show { opacity:1; transform: translateY(0); }
+
+/* Focus states */
+button:focus-visible, input:focus-visible, a:focus-visible {
+  outline: 2px solid #8290a8; outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 1020px) {
+  .dash-grid, .brief-grid { grid-template-columns: 1fr; }
+  .res-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 920px) {
+  .app-layout { grid-template-columns: 1fr; }
+  .sidebar {
+    position: fixed;
+    left: 0; top: 0; width: 276px; height: 100dvh;
+    z-index: 60;
+    transform: translateX(-100%);
+    transition: transform .22s ease;
+    box-shadow: 12px 0 40px rgba(0,0,0,.35);
+  }
+  .sidebar.open { transform: translateX(0); }
+  .topbar { padding: 0 18px 0 18px; }
+  .hamburger { display:inline-flex; }
+  .tb-engagement { font-size: 15.5px;}
+  .content { padding: 30px 18px 60px; }
+  .doc-grid { grid-template-columns: 1fr; }
+  .res-grid { grid-template-columns: 1fr; }
+  .note-hero, .timeline-card, .qa-card, .brief-body { padding: 22px 18px; }
+}
+@media (max-width: 560px) {
+  .gate-card { padding: 36px 24px; border-radius:16px;}
+  .filter-tabs { width:100%;}
+  .search-wrap { max-width: none; width: 100%;}
+  .toolbar { gap:10px;}
+}
+
+/* Print */
+@media print {
+  #gate, .sidebar, .topbar, .qa-card, .toolbar, .btn-download, #toast { display:none !important; }
+  body, #app { background:#fff; color:#111;}
+  .content { padding:0;}
+  .view { display:block !important;}
+  .note-hero, .doc-card, .res-card, .brief-body, .contact-card, .timeline-card {
+    background:#fff !important; color:#111 !important; border:1px solid #ccc !important; box-shadow:none !important; break-inside: avoid;
+  }
+  .view-title, .welcome-h1 { color:#111 !important;}
+}
+</style>
+</head>
+<body>
+
+<!-- Access Gate -->
+<div id="gate" role="main" aria-label="Client portal sign-in">
+  <div class="gate-card">
+    <div class="gate-mark" aria-hidden="true">KJ</div>
+    <h1>Client Intelligence Hub</h1>
+    <p class="gate-sub">Kaylee-Jane — Organizational Diagnosis &amp; Redesign</p>
+
+    <form id="gate-form" novalidate>
+      <label class="gate-label" for="passphrase">Engagement passphrase</label>
+      <input class="gate-input" id="passphrase" name="passphrase" type="password" autocomplete="off" placeholder="Enter your access phrase" aria-describedby="gate-hint" />
+      <div id="gate-hint" class="sr-only">Any passphrase will proceed in demo mode. Use "demo" for the sample engagement.</div>
+      <button class="gate-btn" type="submit">Enter portal →</button>
+      <div class="gate-error" id="gate-error" aria-live="polite"></div>
+    </form>
+
+    <div class="gate-foot">
+      Private engagement portal. Authorized access only.<br>
+      Issues accessing? hello@kaylee-jane.com
+    </div>
+  </div>
+</div>
+
+<!-- Main App -->
+<div id="app" aria-hidden="true">
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar" aria-label="Primary">
+      <div class="sb-top">
+        <div class="sb-brand-row">
+          <div class="sb-mark" aria-hidden="true">KJ</div>
+          <div>
+            <div class="sb-name">Kaylee-Jane</div>
+            <div class="sb-tagline">Organizational Diagnosis</div>
+          </div>
+        </div>
+      </div>
+
+      <nav class="sb-nav" aria-label="Engagement navigation">
+        <div class="sb-nav-label">Engagement</div>
+        <button class="nav-btn" data-view="dashboard" aria-current="page">
+          <span class="nav-ico" aria-hidden="true">⟡</span> Dashboard
+        </button>
+        <button class="nav-btn" data-view="vault">
+          <span class="nav-ico" aria-hidden="true">▤</span> Document Vault
+        </button>
+        <button class="nav-btn" data-view="resources">
+          <span class="nav-ico" aria-hidden="true">⟐</span> Resources Library
+        </button>
+        <button class="nav-btn" data-view="brief">
+          <span class="nav-ico" aria-hidden="true">≡</span> Engagement Brief
+        </button>
+      </nav>
+
+      <div class="sb-footer">
+        <button class="nav-btn signout" id="signout-btn">
+          <span class="nav-ico" aria-hidden="true">←</span> Sign out
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main column -->
+    <div class="main-col">
+      <header class="topbar">
+        <button class="hamburger" id="hamburger" aria-label="Open navigation" aria-expanded="false" aria-controls="sidebar">☰</button>
+        <div class="tb-left">
+          <div class="tb-engagement" id="tb-engagement-title">Acme Holdings <span class="sep">—</span> Organizational Autopsy™</div>
+        </div>
+        <div class="tb-right">
+          <span><span class="status-dot" aria-hidden="true"></span>Active</span>
+          <span id="tb-eng-id" style="color:#70747c">OA-2026-014</span>
+        </div>
+      </header>
+
+      <main class="content" id="main-content" tabindex="-1">
+
+        <!-- DASHBOARD -->
+        <section class="view is-active" id="view-dashboard" aria-labelledby="dash-title">
+          <div class="welcome-block">
+            <div class="welcome-eyebrow" id="dash-client-eyebrow">Client Portal</div>
+            <h1 class="welcome-h1" id="dash-title">Welcome, Acme Holdings</h1>
+            <div class="welcome-meta" id="dash-meta">Engagement: <strong>Organizational Autopsy™</strong> · ID: OA-2026-014 · Jun – Aug 2026</div>
+          </div>
+
+          <div class="note-hero" id="note-hero" aria-live="polite">
+            <!-- populated by JS -->
+          </div>
+
+          <div class="dash-grid">
+            <div class="timeline-card">
+              <h3 class="card-h">Advisor Notes</h3>
+              <div id="notes-timeline"></div>
+            </div>
+
+            <aside class="qa-card" aria-label="Quick actions">
+              <h3 class="card-h" style="margin-bottom:14px">Quick Actions</h3>
+              <div class="qa-list">
+                <button class="qa-btn" id="qa-download">
+                  Download latest report
+                  <span class="sub">Report – Week ending 12.06.2026 · PDF</span>
+                </button>
+                <button class="qa-btn" data-view-jump="vault">
+                  Open Vault
+                  <span class="sub">8 confidential deliverables</span>
+                </button>
+                <button class="qa-btn" data-view-jump="resources">
+                  View Resources
+                  <span class="sub">Frameworks & reference materials</span>
+                </button>
+              </div>
+              <div class="qa-sep"></div>
+              <div class="qa-meta">
+                <strong>Next checkpoint</strong><br>
+                Steering Committee — 19 June 2026, 09:00 AEST<br>
+                Materials uploaded 48h prior.
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <!-- DOCUMENT VAULT -->
+        <section class="view" id="view-vault" aria-labelledby="vault-title">
+          <div class="view-intro">
+            <div class="view-kicker">Confidential</div>
+            <h2 class="view-title" id="vault-title">Document Vault</h2>
+            <p class="view-lede">Confidential engagement deliverables. Version-controlled and time-stamped for board circulation.</p>
+          </div>
+
+          <div class="toolbar">
+            <div class="filter-tabs" role="tablist" aria-label="Document category">
+              <button class="filter-tab is-active" data-filter="all" role="tab" aria-selected="true">All</button>
+              <button class="filter-tab" data-filter="reports" role="tab" aria-selected="false">Reports & Findings</button>
+              <button class="filter-tab" data-filter="governance" role="tab" aria-selected="false">Governance Documents</button>
+              <button class="filter-tab" data-filter="engagement" role="tab" aria-selected="false">Engagement Materials</button>
+            </div>
+            <div class="search-wrap">
+              <span class="search-ico" aria-hidden="true">⌕</span>
+              <input class="search-input" id="vault-search" type="search" placeholder="Search documents…" aria-label="Search documents">
+            </div>
+          </div>
+
+          <div class="doc-grid" id="doc-grid"></div>
+          <div class="empty-state" id="vault-empty" style="display:none; margin-top:14px;">No documents match your filters.</div>
+        </section>
+
+        <!-- RESOURCES LIBRARY -->
+        <section class="view" id="view-resources" aria-labelledby="res-title">
+          <div class="view-intro">
+            <div class="view-kicker">Reference</div>
+            <h2 class="view-title" id="res-title">Resources Library</h2>
+            <p class="view-lede">Frameworks and reference materials used throughout the diagnosis. For internal use within the engagement.</p>
+          </div>
+          <div class="res-grid" id="res-grid"></div>
+        </section>
+
+        <!-- ENGAGEMENT BRIEF -->
+        <section class="view" id="view-brief" aria-labelledby="brief-title">
+          <div class="view-intro">
+            <div class="view-kicker">Scope & Operations</div>
+            <h2 class="view-title" id="brief-title">Engagement Brief</h2>
+            <p class="view-lede">Organizational Autopsy™ — Acme Holdings. June – August 2026.</p>
+          </div>
+
+          <div class="brief-grid">
+            <div class="brief-body">
+              <h3>Engagement Summary</h3>
+              <p>Organizational Autopsy™ is a 12-week executive diagnosis designed to identify structural failure points, decision pathologies, and governance drift before they become intractable.</p>
+              <p>We work from evidence, not opinion. Interviews, artifact analysis, and decision mapping produce a calibrated view of how work actually moves — and where it stalls.</p>
+
+              <hr class="hr-faint">
+
+              <h3>Scope</h3>
+              <ul>
+                <li>Executive interviews across Group leadership and two divisional cohorts</li>
+                <li>Decision-rights mapping and operating rhythm audit</li>
+                <li>Structural Governance Review — Board pack and recommendations</li>
+                <li>Organizational Autopsy — Interim and Final Findings</li>
+                <li>Redesign options, transition plan, and implementation scaffolding</li>
+              </ul>
+              <p style="font-size:13.6px; color:#7f838b;">Out of scope: executive coaching, individual performance assessment, compensation design.</p>
+
+              <hr class="hr-faint">
+              <p style="color:#8f9299; font-size:13.7px;">All deliverables are confidential to Acme Holdings and the engagement team. Board circulation only unless otherwise agreed in writing.</p>
+            </div>
+
+            <div>
+              <div class="contact-card">
+                <h4>Engagement Lead</h4>
+                <p>Kaylee-Jane<br>
+                Organizational Diagnosis &amp; Redesign</p>
+                <p><a href="mailto:hello@kaylee-jane.com">hello@kaylee-jane.com</a></p>
+                <div class="muted-dark">Response window: 1 business day<br>ID: OA-2026-014</div>
+              </div>
+
+              <div class="update-box" aria-label="Content update guide">
+                <h4>Content Update Guide</h4>
+                <p class="update-note" style="margin-bottom:10px;">This portal is file-driven. No HTML edits required to publish new materials.</p>
+                <pre class="code-tree" aria-label="File structure for content updates">/data/<b>client-config.json</b> → client name, engagement
+/data/<b>notes.json</b> → Advisor Notes – paste new entry, appears on Dashboard
+/data/<b>documents.json</b> → Document Vault – add entry pointing to /vault/your-file.pdf
+<b>/vault/</b> → drop PDFs here
+/data/<b>resources.json</b> → Resources Library</pre>
+                <p class="update-note">To add “Report – Week ending 12.06.2026” — upload the PDF to <code>/vault/</code>, add one line to <code>documents.json</code>. It appears in the Vault immediately, newest first. No rebuild needed.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<!-- Preload a tiny placeholder PDF for download buttons (offline-safe) -->
+<script>
+/* ============================================================
+   Kaylee-Jane Client Intelligence Hub V1
+   All data embedded. For GitHub Pages, replace with fetch().
+   ============================================================ */
+
+// --- Engagement data — loaded from /data/ ---
+let CLIENT = {};
+let NOTES = [];
+let DOCUMENTS = [];
+let RESOURCES = [];
+
+async function loadData(){
+  try {
+    const [c, n, d, r] = await Promise.all([
+      fetch('./data/client-config.json').then(x=>x.json()),
+      fetch('./data/notes.json').then(x=>x.json()),
+      fetch('./data/documents.json').then(x=>x.json()),
+      fetch('./data/resources.json').then(x=>x.json())
+    ]);
+    CLIENT=c; NOTES=n; DOCUMENTS=d; RESOURCES=r;
+  } catch(e) {
+    console.error('Failed to load data', e);
+    document.getElementById('main-content').innerHTML = '<div style="padding:40px;color:#c88">Could not load /data/*.json — are you running via http? GitHub Pages works, file:// does not for fetch().</div>';
+    return false;
+  }
+  return true;
+}
+
+/* ---------- Utilities ---------- */
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+function fmtDate(iso){
+  const d = new Date(iso + 'T12:00:00');
+  return d.toLocaleDateString('en-GB', { day:'2-digit', month:'2-digit', year:'numeric' });
+}
+function toast(msg){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(()=> t.classList.remove('show'), 2600);
+}
+
+/* ---------- Gate ---------- */
+const GATE_KEY = 'kj_cih_auth_v1';
+function isAuthed(){ try { return sessionStorage.getItem(GATE_KEY) === '1'; } catch(e){ return false; } }
+
+function showApp(){
+  $('#gate').style.display = 'none';
+  const app = $('#app');
+  app.style.display = 'block';
+  app.setAttribute('aria-hidden','false');
+  renderAll();
+}
+
+function initGate(){
+  if(isAuthed()){
+    showApp();
+    return;
+  }
+  $('#gate-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const val = ($('#passphrase').value || '').trim();
+    // Any input proceeds. "demo" is the documented phrase.
+    if(val.length === 0){
+      $('#gate-error').textContent = 'Enter any passphrase to continue in demo mode, or use “demo”.';
+      return;
+    }
+    try { sessionStorage.setItem(GATE_KEY, '1'); } catch(e){}
+    showApp();
+  });
+}
+
+/* ---------- View Router ---------- */
+function showView(name){
+  $$('.view').forEach(v => v.classList.remove('is-active'));
+  const target = $('#view-' + name);
+  if(target) target.classList.add('is-active');
+  $$('.nav-btn[data-view]').forEach(b => {
+    b.setAttribute('aria-current', b.dataset.view === name ? 'page' : 'false');
+  });
+  $('#main-content').focus({preventScroll:true});
+  closeSidebar();
+  window.scrollTo({ top: 0, behavior: 'auto' });
+}
+
+/* ---------- Renderers ---------- */
+function renderClient(){
+  $('#dash-title').textContent = 'Welcome, ' + CLIENT.name;
+  $('#dash-meta').innerHTML = `Engagement: <strong>${CLIENT.engagement}</strong> · ID: ${CLIENT.id} · ${CLIENT.dates}`;
+  $('#tb-engagement-title').innerHTML = `${CLIENT.name} <span class="sep">—</span> ${CLIENT.engagement}`;
+  $('#tb-eng-id').textContent = CLIENT.id;
+}
+
+function renderNotes(){
+  const hero = NOTES[0];
+  $('#note-hero').innerHTML = `
+    <div class="note-hero-top">
+      <span><span class="live-dot">●</span> Advisor Notes · Latest</span>
+      <span>${fmtDate(hero.date)}</span>
+    </div>
+    <h2>${hero.title}</h2>
+    <p>${hero.body}</p>
+  `;
+  const list = $('#notes-timeline');
+  list.innerHTML = NOTES.map(n => `
+    <article class="note-item">
+      <div class="note-date">${fmtDate(n.date)}</div>
+      <h4>${n.title}</h4>
+      <p>${n.body}</p>
+      <span class="note-tag">${n.tag}</span>
+    </article>
+  `).join('');
+}
+
+function renderDocuments(){
+  const grid = $('#doc-grid');
+  grid.innerHTML = DOCUMENTS.map((d) => `
+    <article class="doc-card" data-cat="${d.category}">
+      <div class="doc-top">
+        <span class="doc-cat">${d.categoryLabel}</span>
+        <span class="doc-type">${d.type}</span>
+      </div>
+      <h3>${d.title}</h3>
+      <div class="doc-meta">Added ${fmtDate(d.date)} · Engagement confidential</div>
+      <div class="doc-actions">
+        <a class="btn-download" href="${d.file}" download>
+          <span aria-hidden="true">↓</span> Download
+        </a>
+      </div>
+    </article>
+  `).join('');
+}
+
+function renderResources(){
+  $('#res-grid').innerHTML = RESOURCES.map(r => `
+    <article class="res-card">
+      <h3>${r.title}</h3>
+      <p>${r.summary}</p>
+      <a class="res-link" href="${r.href}" target="_blank" rel="noopener">Open reference →</a>
+    </article>
+  `).join('');
+}
+
+/* Vault filtering */
+let vaultFilter = 'all';
+let vaultQuery = '';
+function applyVaultFilter(){
+  const items = $$('#doc-grid .doc-card');
+  let visible = 0;
+  items.forEach(el => {
+    const cat = el.dataset.cat;
+    const text = el.textContent.toLowerCase();
+    const catMatch = vaultFilter === 'all' || cat === vaultFilter;
+    const qMatch = !vaultQuery || text.includes(vaultQuery);
+    const show = catMatch && qMatch;
+    el.classList.toggle('doc-hidden', !show);
+    if(show) visible++;
+  });
+  $('#vault-empty').style.display = visible ? 'none' : 'block';
+}
+
+function initVaultControls(){
+  $$('.filter-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      $$('.filter-tab').forEach(b => { b.classList.remove('is-active'); b.setAttribute('aria-selected','false'); });
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-selected','true');
+      vaultFilter = btn.dataset.filter;
+      applyVaultFilter();
+    });
+  });
+  $('#vault-search').addEventListener('input', (e) => {
+    vaultQuery = e.target.value.trim().toLowerCase();
+    applyVaultFilter();
+  });
+}
+
+/* ---------- Wiring ---------- */
+function renderAll(){
+  renderClient();
+  renderNotes();
+  renderDocuments();
+  renderResources();
+  applyVaultFilter();
+}
+
+function initNav(){
+  $$('.nav-btn[data-view]').forEach(btn => {
+    btn.addEventListener('click', () => showView(btn.dataset.view));
+  });
+  $$('[data-view-jump]').forEach(btn => {
+    btn.addEventListener('click', () => showView(btn.dataset.viewJump));
+  });
+
+  $('#qa-download').addEventListener('click', () => {
+    const latest = DOCUMENTS[0];
+    if(latest && latest.file) { window.open(latest.file, '_blank'); }
+  });
+
+  const signoutBtn = $('#signout-btn');
+  if(signoutBtn) signoutBtn.addEventListener('click', () => location.reload());
+}
+
+function initSidebarMobile(){
+  const sidebar = $('#sidebar');
+  const hamburger = $('#hamburger');
+  function closeSidebar(){
+    sidebar.classList.remove('open');
+    hamburger.setAttribute('aria-expanded','false');
+  }
+  function openSidebar(){
+    sidebar.classList.add('open');
+    hamburger.setAttribute('aria-expanded','true');
+  }
+  window.closeSidebar = closeSidebar;
+  hamburger.addEventListener('click', () => {
+    if(sidebar.classList.contains('open')) closeSidebar();
+    else openSidebar();
+  });
+  document.addEventListener('click', (e) => {
+    if(window.innerWidth > 920) return;
+    if(sidebar.classList.contains('open') && !sidebar.contains(e.target) && e.target !== hamburger){
+      closeSidebar();
+    }
+  });
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') closeSidebar();
+  });
+}
+
+/* Init */
+initNav();
+initVaultControls();
+initSidebarMobile();
+loadData().then(ok => { if(ok){ renderAll(); showView('dashboard'); } });
+</script>
+</body>
+</html>
