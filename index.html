@@ -57,9 +57,101 @@ button, input { font: inherit; }
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
 
+/* --- Access Gate --- */
+#gate {
+  min-height: 100vh;
+  background: var(--ivory);
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+}
+.gate-card {
+  width: 100%;
+  max-width: 480px;
+  background: #fff;
+  border: 1px solid var(--line-light);
+  border-radius: 20px;
+  padding: 52px 44px 40px;
+  box-shadow: 0 18px 60px rgba(20,27,42,.08);
+}
+.gate-mark {
+  width: 44px; height: 44px;
+  border-radius: 11px;
+  background: var(--navy);
+  color: var(--ivory);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif);
+  font-size: 19px;
+  margin-bottom: 28px;
+}
+.gate-card h1 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(30px, 4.5vw, 38px);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  margin: 0 0 10px;
+  color: #151b28;
+}
+.gate-sub {
+  color: #5c5e64;
+  font-size: 14.5px;
+  margin: 0 0 34px;
+}
+.gate-label {
+  display: block;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: .11em;
+  color: #777a80;
+  margin-bottom: 9px;
+}
+.gate-input {
+  width: 100%;
+  padding: 14px 15px;
+  border: 1px solid #cbc6bd;
+  background: #fbfaf7;
+  border-radius: 10px;
+  font-size: 15.5px;
+  color: #1b1f27;
+  outline: none;
+  transition: border-color var(--ease), box-shadow var(--ease);
+}
+.gate-input:focus { border-color: #95908a; box-shadow: 0 0 0 3px rgba(20,27,42,.08); }
+.gate-input::placeholder { color:#a8a5a0; }
+.gate-btn {
+  margin-top: 14px;
+  width: 100%;
+  padding: 14px 18px;
+  background: #161d2b;
+  color: #f6f4ef;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14.5px;
+  font-weight: 500;
+  transition: background var(--ease), transform var(--ease);
+}
+.gate-btn:hover { background: #202a3e; }
+.gate-btn:active { transform: translateY(1px); }
+.gate-foot {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid #e4e0d9;
+  font-size: 12.7px;
+  color: #7b7c7f;
+}
+.gate-error {
+  font-size: 13px;
+  color: #a54a3a;
+  margin-top: 10px;
+  min-height: 18px;
+}
+
 /* --- App Shell --- */
-#app { display: none; min-height: 100vh; }
-#app.is-ready { display: block; }
+#app { display: block; min-height: 100vh; }
 
 .app-layout {
   display: grid;
@@ -751,159 +843,34 @@ button:focus-visible, input:focus-visible, a:focus-visible {
 <div id="toast" role="status" aria-live="polite"></div>
 
 <!-- Preload a tiny placeholder PDF for download buttons (offline-safe) -->
-<a id="dummy-pdf" href="data:application/pdf;base64,JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFI+PgplbmRvYmoKMiAwIG9iago8PC9UeXBlL1BhZ2VzL0tpZHNbMyAwIFJdL0NvdW50IDE+PgplbmRvYmoKMyAwIG9iago8PC9UeXBlL1BhZ2UvUGFyZW50IDIgMCBSL01lZGlhQm94WzAgMCA0NzIgMTgwXT4+CmVuZG9iagp4cmVmCjAgNAowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDAwMTUgMDAwMDAgbiAKMDAwMDAwMDA2NSAwMDAwMCBuIAowMDAwMDAwMTIwIDAwMDAwIG4gCnRyYWlsZXIKPDwvU2l6ZSA0L1Jvb3QgMSAwIFI+PgpzdGFydHhyZWYKMTg4CiUlRU9GCg==" download="Kaylee-Jane-Sample-Report-OA-2026-014.pdf" hidden></a>
-
 <script>
 /* ============================================================
    Kaylee-Jane Client Intelligence Hub V1
    All data embedded. For GitHub Pages, replace with fetch().
    ============================================================ */
 
-// --- Embedded engagement data ---
-// On GitHub Pages: replace with fetch('./data/client-config.json')
-const CLIENT = {
-  name: "Acme Holdings",
-  engagement: "Organizational Autopsy™",
-  id: "OA-2026-014",
-  dates: "Jun – Aug 2026",
-  email: "hello@kaylee-jane.com"
-};
+// --- Engagement data — loaded from /data/ ---
+let CLIENT = {};
+let NOTES = [];
+let DOCUMENTS = [];
+let RESOURCES = [];
 
-// On GitHub Pages: replace with fetch('./data/notes.json')
-const NOTES = [
-  {
-    date: "2026-06-12",
-    title: "Most organisational problems are not solved because they are not diagnosed.",
-    body: "The operating rhythm audit is complete. Three decision chokepoints are now visible in the capital allocation path. We will pressure-test them with the Steering Committee next week.",
-    tag: "Diagnosis"
-  },
-  {
-    date: "2026-06-05",
-    title: "Structure follows decision rights, not the reverse.",
-    body: "Interviews across Group and Divisions confirm a consistent pattern: accountability is clear on paper, ambiguous in practice. Governance pack drafted for 19 June.",
-    tag: "Governance"
-  },
-  {
-    date: "2026-05-29",
-    title: "The cost of unmade decisions is measurable.",
-    body: "Decision latency analysis shows an average 23-day gap between recommendation and sign-off in two critical workflows. Interim findings document updated in the Vault.",
-    tag: "Findings"
-  },
-  {
-    date: "2026-05-21",
-    title: "Calm is a design constraint, not a personality trait.",
-    body: "The current operating cadence produces avoidable escalation. A revised meeting architecture is included in the Redesign Options note — see Resources.",
-    tag: "Redesign"
-  },
-  {
-    date: "2026-05-14",
-    title: "Engagement commencement — Acme Holdings.",
-    body: "Organizational Autopsy™ OA-2026-014 is now active. Interview schedule confirmed. All deliverables will appear here as they are cleared.",
-    tag: "Engagement"
+async function loadData(){
+  try {
+    const [c, n, d, r] = await Promise.all([
+      fetch('./data/client-config.json').then(x=>x.json()),
+      fetch('./data/notes.json').then(x=>x.json()),
+      fetch('./data/documents.json').then(x=>x.json()),
+      fetch('./data/resources.json').then(x=>x.json())
+    ]);
+    CLIENT=c; NOTES=n; DOCUMENTS=d; RESOURCES=r;
+  } catch(e) {
+    console.error('Failed to load data', e);
+    document.getElementById('main-content').innerHTML = '<div style="padding:40px;color:#c88">Could not load /data/*.json — are you running via http? GitHub Pages works, file:// does not for fetch().</div>';
+    return false;
   }
-];
-
-// On GitHub Pages: replace with fetch('./data/documents.json')
-const DOCUMENTS = [
-  {
-    title: "Report – Week ending 12.06.2026",
-    category: "reports",
-    categoryLabel: "Reports & Findings",
-    date: "2026-06-12",
-    type: "PDF",
-    file: "#report-2026-06-12"
-  },
-  {
-    title: "Organizational Autopsy – Interim Findings",
-    category: "reports",
-    categoryLabel: "Reports & Findings",
-    date: "2026-06-03",
-    type: "PDF",
-    file: "#interim-findings"
-  },
-  {
-    title: "Decision Latency Analysis",
-    category: "reports",
-    categoryLabel: "Reports & Findings",
-    date: "2026-05-29",
-    type: "PDF",
-    file: "#latency"
-  },
-  {
-    title: "Structural Governance Review – Board Pack",
-    category: "governance",
-    categoryLabel: "Governance Documents",
-    date: "2026-06-05",
-    type: "PDF",
-    file: "#governance-pack"
-  },
-  {
-    title: "Decision Rights Charter – Draft v0.7",
-    category: "governance",
-    categoryLabel: "Governance Documents",
-    date: "2026-05-27",
-    type: "PDF",
-    file: "#charter"
-  },
-  {
-    title: "Operating Rhythm – Meeting Architecture",
-    category: "governance",
-    categoryLabel: "Governance Documents",
-    date: "2026-05-22",
-    type: "PDF",
-    file: "#rhythm"
-  },
-  {
-    title: "Engagement Proposal – Acme Holdings",
-    category: "engagement",
-    categoryLabel: "Engagement Materials",
-    date: "2026-05-09",
-    type: "PDF",
-    file: "#proposal"
-  },
-  {
-    title: "Interview Guide & Artifact Request List",
-    category: "engagement",
-    categoryLabel: "Engagement Materials",
-    date: "2026-05-14",
-    type: "PDF",
-    file: "#interview-guide"
-  }
-];
-
-// On GitHub Pages: replace with fetch('./data/resources.json')
-const RESOURCES = [
-  {
-    title: "Diagnostic Emergence Error™ — Framework Note",
-    summary: "Why most internal diagnoses misidentify the real constraint, and how to correct for it.",
-    href: "#"
-  },
-  {
-    title: "Governance Architecture Checklist",
-    summary: "A 14-point diagnostic for decision rights, escalation paths, and board interface clarity.",
-    href: "#"
-  },
-  {
-    title: "Redesign Options — Evaluation Criteria",
-    summary: "How to weigh structural options without defaulting to the current org chart.",
-    href: "#"
-  },
-  {
-    title: "Meeting Load Calculator",
-    summary: "Quantify coordination cost. Used in the Operating Rhythm audit.",
-    href: "#"
-  },
-  {
-    title: "Role Clarity Canvas",
-    summary: "A single-page tool for resolving accountability ambiguity at executive interfaces.",
-    href: "#"
-  },
-  {
-    title: "Transition Sequencing Guide",
-    summary: "Rolling out structural change without breaking delivery. Timing, comms, risk.",
-    href: "#"
-  }
-];
+  return true;
+}
 
 /* ---------- Utilities ---------- */
 const $ = (s, r=document) => r.querySelector(s);
@@ -994,8 +961,8 @@ function renderNotes(){
 
 function renderDocuments(){
   const grid = $('#doc-grid');
-  grid.innerHTML = DOCUMENTS.map((d, i) => `
-    <article class="doc-card" data-cat="${d.category}" data-index="${i}">
+  grid.innerHTML = DOCUMENTS.map((d) => `
+    <article class="doc-card" data-cat="${d.category}">
       <div class="doc-top">
         <span class="doc-cat">${d.categoryLabel}</span>
         <span class="doc-type">${d.type}</span>
@@ -1003,27 +970,12 @@ function renderDocuments(){
       <h3>${d.title}</h3>
       <div class="doc-meta">Added ${fmtDate(d.date)} · Engagement confidential</div>
       <div class="doc-actions">
-        <a class="btn-download" href="#" data-download="${i}" download>
+        <a class="btn-download" href="${d.file}" download>
           <span aria-hidden="true">↓</span> Download
         </a>
       </div>
     </article>
   `).join('');
-  grid.querySelectorAll('[data-download]').forEach(a => {
-    a.addEventListener('click', (e) => {
-      e.preventDefault();
-      // Use the embedded dummy PDF so this works file:// with zero network requests
-      const real = document.getElementById('dummy-pdf');
-      const temp = document.createElement('a');
-      temp.href = real.href;
-      const doc = DOCUMENTS[parseInt(a.dataset.download,10)];
-      temp.download = (doc.title.replace(/[^a-z0-9]+/gi,'-') + '.pdf').toLowerCase();
-      document.body.appendChild(temp);
-      temp.click();
-      temp.remove();
-      toast('Demo download — connect your /vault/ files in production.');
-    });
-  });
 }
 
 function renderResources(){
@@ -1031,7 +983,7 @@ function renderResources(){
     <article class="res-card">
       <h3>${r.title}</h3>
       <p>${r.summary}</p>
-      <a class="res-link" href="${r.href}" onclick="event.preventDefault(); toast('Reference preview — connect your resource files in /data/resources.json'); return false;">Open reference →</a>
+      <a class="res-link" href="${r.href}" target="_blank" rel="noopener">Open reference →</a>
     </article>
   `).join('');
 }
@@ -1088,20 +1040,12 @@ function initNav(){
   });
 
   $('#qa-download').addEventListener('click', () => {
-    const real = document.getElementById('dummy-pdf');
-    const a = document.createElement('a');
-    a.href = real.href;
-    a.download = 'Report-Week-ending-12-06-2026-OA-2026-014.pdf';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    toast('Demo download — connect your /vault/ files in production.');
+    const latest = DOCUMENTS[0];
+    if(latest && latest.file) { window.open(latest.file, '_blank'); }
   });
 
-  $('#signout-btn').addEventListener('click', () => {
-    try { sessionStorage.removeItem(GATE_KEY); } catch(e){}
-    location.reload();
-  });
+  const signoutBtn = $('#signout-btn');
+  if(signoutBtn) signoutBtn.addEventListener('click', () => location.reload());
 }
 
 function initSidebarMobile(){
@@ -1135,10 +1079,7 @@ function initSidebarMobile(){
 initNav();
 initVaultControls();
 initSidebarMobile();
-renderAll();
-showView('dashboard');
-}
+loadData().then(ok => { if(ok){ renderAll(); showView('dashboard'); } });
 </script>
-<script>(function(){document.addEventListener("click",function(e){var a=e.target.closest("[data-product-id]");if(!a)return;e.preventDefault();var pid=a.getAttribute("data-product-id");if(pid)parent.postMessage({type:"ecto-artifact-link-click",productId:pid},"*")})})();</script>
 </body>
 </html>

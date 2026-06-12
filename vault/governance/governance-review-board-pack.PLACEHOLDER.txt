@@ -1,0 +1,4 @@
+Drop your real PDF here and name it:
+governance-review-board-pack.pdf
+
+Then update /data/documents.json with the matching "file": "vault/governance/governance-review-board-pack.pdf" entry.

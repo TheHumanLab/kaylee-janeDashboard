@@ -1,0 +1,4 @@
+Drop your real PDF here and name it:
+decision-rights-charter.pdf
+
+Then update /data/documents.json with the matching "file": "vault/governance/decision-rights-charter.pdf" entry.

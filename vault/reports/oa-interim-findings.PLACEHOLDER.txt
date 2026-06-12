@@ -1,0 +1,4 @@
+Drop your real PDF here and name it:
+oa-interim-findings.pdf
+
+Then update /data/documents.json with the matching "file": "vault/reports/oa-interim-findings.pdf" entry.

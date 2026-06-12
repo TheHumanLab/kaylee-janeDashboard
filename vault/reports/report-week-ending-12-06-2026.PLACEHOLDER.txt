@@ -1,0 +1,4 @@
+Drop your real PDF here and name it:
+report-week-ending-12-06-2026.pdf
+
+Then update /data/documents.json with the matching "file": "vault/reports/report-week-ending-12-06-2026.pdf" entry.

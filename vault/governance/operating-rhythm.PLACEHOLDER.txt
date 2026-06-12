@@ -1,0 +1,4 @@
+Drop your real PDF here and name it:
+operating-rhythm.pdf
+
+Then update /data/documents.json with the matching "file": "vault/governance/operating-rhythm.pdf" entry.

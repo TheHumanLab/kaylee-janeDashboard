@@ -1,0 +1,66 @@
+[
+  {
+    "title": "Report \u2013 Week ending 12.06.2026",
+    "category": "reports",
+    "categoryLabel": "Reports & Findings",
+    "date": "2026-06-12",
+    "type": "PDF",
+    "file": "vault/reports/report-week-ending-12-06-2026.pdf"
+  },
+  {
+    "title": "Organizational Autopsy \u2013 Interim Findings",
+    "category": "reports",
+    "categoryLabel": "Reports & Findings",
+    "date": "2026-06-03",
+    "type": "PDF",
+    "file": "vault/reports/oa-interim-findings.pdf"
+  },
+  {
+    "title": "Decision Latency Analysis",
+    "category": "reports",
+    "categoryLabel": "Reports & Findings",
+    "date": "2026-05-29",
+    "type": "PDF",
+    "file": "vault/reports/decision-latency-analysis.pdf"
+  },
+  {
+    "title": "Structural Governance Review \u2013 Board Pack",
+    "category": "governance",
+    "categoryLabel": "Governance Documents",
+    "date": "2026-06-05",
+    "type": "PDF",
+    "file": "vault/governance/governance-review-board-pack.pdf"
+  },
+  {
+    "title": "Decision Rights Charter \u2013 Draft v0.7",
+    "category": "governance",
+    "categoryLabel": "Governance Documents",
+    "date": "2026-05-27",
+    "type": "PDF",
+    "file": "vault/governance/decision-rights-charter.pdf"
+  },
+  {
+    "title": "Operating Rhythm \u2013 Meeting Architecture",
+    "category": "governance",
+    "categoryLabel": "Governance Documents",
+    "date": "2026-05-22",
+    "type": "PDF",
+    "file": "vault/governance/operating-rhythm.pdf"
+  },
+  {
+    "title": "Engagement Proposal \u2013 Acme Holdings",
+    "category": "engagement",
+    "categoryLabel": "Engagement Materials",
+    "date": "2026-05-09",
+    "type": "PDF",
+    "file": "vault/engagement/engagement-proposal.pdf"
+  },
+  {
+    "title": "Interview Guide & Artifact Request List",
+    "category": "engagement",
+    "categoryLabel": "Engagement Materials",
+    "date": "2026-05-14",
+    "type": "PDF",
+    "file": "vault/engagement/interview-guide.pdf"
+  }
+]
